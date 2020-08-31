@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 
+Route::get('/test','BrandController@index');
 Route::get('/viewBrand','BrandController@index');
 Route::get('/createBrand', 'BrandController@create'); //return page create cust
 Route::post('/insertBrand', 'BrandController@store'); //proses add data cust
