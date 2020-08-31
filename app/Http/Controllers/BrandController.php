@@ -112,9 +112,26 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
+    public function edit($id)
     {
-        //
+        $client = new Client();
+        $url = '172.16.4.32:8301/restv2/doBrandGreg/allfunction';
+    
+          $brand = [
+            "brand" => [
+                "FUNCTION" => "search",
+                "CD_BRAND" => $id,
+                "DESC_BRAND" => ""
+            ]
+         ];
+        
+        $header = ['headers' => ['Content-Type' => 'application/json'],'json'=>$brand];
+        $request = $client->post($url,$header);
+        $json_data = $request->getBody()->getContents();
+        $response = collect(json_decode($json_data));
+        $data = $response['OUT_DATA'];
+
+        return view('brand.edit',compact('data'));
     }
 
     /**

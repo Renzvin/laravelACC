@@ -44,7 +44,7 @@
       <td>{{$brand->CD_BRAND }}</>
       <td>{{$brand->DESC_BRAND }}</td>
       <td>{{$brand->DT_ADDED  }}</td>
-      <td><a href='{{url("/")}}' class="btn btn-secondary">
+      <td><a href='{{url("/editBrand/$brand->CD_BRAND")}}' class="btn btn-secondary">
                         Edit
                     </a>
                     <a href='{{url("/")}}' class="btn btn-danger">

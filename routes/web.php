@@ -17,9 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/editBrand/{id}','BrandController@edit');
+
 
 Route::get('/test','BrandController@index');
 Route::get('/viewBrand','BrandController@index');
+Route::get('/updateBrand/{id}','BrandController@update');
 Route::get('/createBrand', 'BrandController@create'); //return page create cust
 Route::post('/insertBrand', 'BrandController@store'); //proses add data cust
 Route::post('/searchBrand','BrandController@search'); //search data
