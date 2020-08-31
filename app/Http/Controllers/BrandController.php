@@ -130,7 +130,6 @@ class BrandController extends Controller
         $json_data = $request->getBody()->getContents();
         $response = collect(json_decode($json_data));
         $data = $response['OUT_DATA'];
-
         return view('brand.edit',compact('data'));
     }
 
@@ -156,7 +155,7 @@ class BrandController extends Controller
         $request = $client->post($url,$header);
         $response = $request->getBody()->getContents();
 
-        return ($response);
+        return redirect('/viewBrand')->with('info','Data Saved Succesfully');
     }
 
     /**
@@ -181,7 +180,7 @@ class BrandController extends Controller
         $request = $client->post($url,$header);
         $response = $request->getBody()->getContents();
 
-        return ($response);
+        return redirect('/viewBrand')->with('info','Data Saved Succesfully');
         
     }
 }

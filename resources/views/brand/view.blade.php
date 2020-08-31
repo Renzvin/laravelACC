@@ -47,7 +47,7 @@
       <td><a href='{{url("/editBrand/$brand->CD_BRAND")}}' class="btn btn-secondary">
                         Edit
                     </a>
-                    <a href='{{url("/")}}' class="btn btn-danger">
+                    <a href='{{url("/deleteBrand/$brand->CD_BRAND")}}' class="btn btn-danger">
                         Delete
                     </a></td>
     </tr>
