@@ -32,6 +32,24 @@ class BrandController extends Controller
         return ($response);
     }
 
+    public function search($id = "")
+    {
+        $client = new Client();
+        $url = '172.16.4.32:8301/restv2/doBrandGreg/allfunction';
+        $brand = [
+            "brand" => [
+                "FUNCTION" => "search",
+                "CD_BRAND" => $id,
+                "DESC_BRAND" => ""
+            ]
+        ];
+        $header = ['headers' => ['Content-Type' => 'application/json'],'json'=>$brand];
+        $request = $client->post($url,$header);
+        $response = $request->getBody()->getContents();
+
+        return ($response);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
