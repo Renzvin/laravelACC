@@ -1,5 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.menulogin')
 
+<!--
 @section('content')
 <div class="container">
     <div class="row">
@@ -67,3 +68,47 @@
     </div>
 </div>
 @endsection
+-->
+
+@section('content')
+    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+        {{ csrf_field() }}
+        <div class="wrap-input100 validate-input" data-validate = "Enter username">
+            <input class="input100" id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
+            @if ($errors->has('email'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </span>
+            @endif
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Enter password">
+            <input id="password" type="password" class="input100" name="password" placeholder="Password" required>
+            @if ($errors->has('password'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </span>
+            @endif
+        </div>
+
+        <div class="contact100-form-checkbox">
+            <input class="input-checkbox100" type="checkbox" name="remember" id="ckb1" name="remember-me" {{ old('remember') ? 'checked' : '' }}>
+            <label class="label-checkbox100" for="ckb1">
+                Remember me
+            </label>
+        </div>
+
+        <div class="container-login100-form-btn">
+            <button type="submit" class="login100-form-btn">
+                Login
+            </button>
+        </div>
+
+        <div class="text-center p-t-90">
+            <a class="txt1" href="{{ route('password.request') }}">
+                Forgot Password?
+            </a>
+        </div>
+    </form>
+@endsection
+
