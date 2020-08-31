@@ -27,27 +27,36 @@ class BrandController extends Controller
         ];
         $header = ['headers' => ['Content-Type' => 'application/json'],'json'=>$brand];
         $request = $client->post($url,$header);
-        $response = $request->getBody()->getContents();
+        $json_data = $request->getBody()->getContents();
+        $response = collect(json_decode($json_data));
+        $data = $response['OUT_DATA'];
 
-        return ($response);
+        return view('brand.view',compact('data'));
     }
 
-    public function search($id = "")
+    public function search(Request $request)
     {
         $client = new Client();
         $url = '172.16.4.32:8301/restv2/doBrandGreg/allfunction';
-        $brand = [
+        if($request->CD_BRAND!='')
+        {
+          $brand = [
             "brand" => [
                 "FUNCTION" => "search",
-                "CD_BRAND" => $id,
+                "CD_BRAND" => $request->CD_BRAND,
                 "DESC_BRAND" => ""
             ]
-        ];
+         ];
+        }else{
+          return redirect('/viewBrand')->with('info','Data Saved Succesfully');
+        } 
         $header = ['headers' => ['Content-Type' => 'application/json'],'json'=>$brand];
         $request = $client->post($url,$header);
-        $response = $request->getBody()->getContents();
+        $json_data = $request->getBody()->getContents();
+        $response = collect(json_decode($json_data));
+        $data = $response['OUT_DATA'];
 
-        return ($response);
+        return view('brand.view',compact('data'));
     }
 
     /**
@@ -73,7 +82,7 @@ class BrandController extends Controller
         $client = new \GuzzleHttp\Client();
         $brand = [
             "brand" => [
-                "FUNCTION" => $request->FUNCTION,
+                "FUNCTION" => "insert",
                 "CD_BRAND" => $request->CD_BRAND,
                 "DESC_BRAND" => $request->DESC_BRAND
             ]
@@ -81,9 +90,9 @@ class BrandController extends Controller
         // $brand = json_encode($brand);
 
         $request = $client->post('172.16.4.32:8301/restv2/doBrandGreg/allfunction',['headers' => ['Content-Type' => 'application/json'],'json'=>$brand]);
-        $response = $request->getBody()->getContents();
+        $json_data = $request->getBody()->getContents();
 
-        dd($response);
+        return redirect('/viewBrand')->with('info','Data Saved Succesfully');
     }
 
     /**

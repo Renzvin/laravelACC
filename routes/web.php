@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/viewBrand','BrandController@index');
 Route::get('/createBrand', 'BrandController@create'); //return page create cust
 Route::post('/insertBrand', 'BrandController@store'); //proses add data cust
+Route::post('/searchBrand','BrandController@search'); //search data
