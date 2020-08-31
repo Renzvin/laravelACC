@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Brand;
 use Illuminate\Http\Request;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class BrandController extends Controller
 {
@@ -14,7 +16,17 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        $client = new Client(); //GuzzleHttp\Client
+        $result = $client->post('172.16.4.32:8301/restv2/doBrandGreg/allfunction', [
+        "brand" => [
+            "FUNCTION" =>"get",
+            "CD_BRAND" =>"",
+            "DESC_BRAND" =>"" 
+        ]
+        ]);
+        $data = $result->getBody();
+        $data = json_decode($data);
+        dd($data);
     }
 
     /**
@@ -67,9 +79,19 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, $CD_BRAND)
     {
-        //
+        $client = new Client(); //GuzzleHttp\Client
+        $result = $client->post('172.16.4.32:8301/restv2/doBrandGreg/allfunction', [
+        "brand" => [
+            "FUNCTION" =>"update",
+            "CD_BRAND" =>$CD_BRAND,
+            "DESC_BRAND" =>$request->input('DESC_BRAND') 
+        ]
+        ]);
+        $data = $result->getBody();
+        $data = json_decode($data);
+        dd($data);
     }
 
     /**
