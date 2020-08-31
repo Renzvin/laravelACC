@@ -135,11 +135,10 @@ class BrandController extends Controller
                 "DESC_BRAND" => $request->input('DESC_BRAND')
             ]
         ];
-        $header = ['headers' => ['Content-Type' => 'application/json'],'json'=>$brand];
-        $request = $client->post($url,$header);
-        $response = $request->getBody()->getContents();
+        $request = $client->post('172.16.4.32:8301/restv2/doBrandGreg/allfunction',['headers' => ['Content-Type' => 'application/json'],'json'=>$brand]);
+        $json_data = $request->getBody()->getContents();
 
-        return ($response);
+        return redirect('/viewBrand')->with('info','Data updated Succesfully');
     }
 
     /**
