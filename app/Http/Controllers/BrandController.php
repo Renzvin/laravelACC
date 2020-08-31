@@ -115,9 +115,22 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, $id = "")
     {
-        //
+        $client = new Client();
+        $url = '172.16.4.32:8301/restv2/doBrandGreg/allfunction';
+        $brand = [
+            "brand" => [
+                "FUNCTION" => "update",
+                "CD_BRAND" => $id,
+                "DESC_BRAND" => $request->input('DESC_BRAND')
+            ]
+        ];
+        $header = ['headers' => ['Content-Type' => 'application/json'],'json'=>$brand];
+        $request = $client->post($url,$header);
+        $response = $request->getBody()->getContents();
+
+        return ($response);
     }
 
     /**
