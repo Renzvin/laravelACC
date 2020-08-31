@@ -58,6 +58,7 @@ class BrandController extends Controller
     public function create()
     {
         //
+        return view('brand.create');
     }
 
     /**
@@ -69,6 +70,20 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         //
+        $client = new \GuzzleHttp\Client();
+        $brand = [
+            "brand" => [
+                "FUNCTION" => $request->FUNCTION,
+                "CD_BRAND" => $request->CD_BRAND,
+                "DESC_BRAND" => $request->DESC_BRAND
+            ]
+        ];
+        // $brand = json_encode($brand);
+
+        $request = $client->post('172.16.4.32:8301/restv2/doBrandGreg/allfunction',['headers' => ['Content-Type' => 'application/json'],'json'=>$brand]);
+        $response = $request->getBody()->getContents();
+
+        dd($response);
     }
 
     /**
